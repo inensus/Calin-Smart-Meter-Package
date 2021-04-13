@@ -20,7 +20,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Inensus\\CalinSmartMeter\\Providers\\ServiceProvider"
+        "Inensus\\CalinSmartMeter\\Providers\\CalinSmartMeterServiceProvider"
       ]
     }
   }
