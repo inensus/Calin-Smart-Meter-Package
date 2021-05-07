@@ -61,9 +61,7 @@ class CalinSmartMeterServiceProvider extends ServiceProvider
                     $file = $filesystem->glob($path . '*_create_calin_smart_tables.php')[0];
 
                     file_put_contents($file, file_get_contents(__DIR__ . '/../../database/migrations/create_calin_smart_tables.php.stub'));
-                    DB::table('migrations')
-                        ->where('migration',substr(explode("/migrations/", $file)[1], 0, -4))
-                        ->delete();
+
                 }
                 return $filesystem->glob($path . '*_create_calin_smart_tables.php');
             })->push($this->app->databasePath() . "/migrations/{$timestamp}_create_calin_smart_tables.php")
