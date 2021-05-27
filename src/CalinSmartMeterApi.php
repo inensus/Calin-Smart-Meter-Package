@@ -118,29 +118,9 @@ class CalinSmartMeterApi implements IManufacturerAPI
      */
     public function associateManufacturerTransaction(TransactionDataContainer $transactionContainer): void
     {
-
         $manufacturerTransaction = $this->calinSmartTransaction->newQuery()->create([
             'transaction_id' => $transactionContainer->transaction->id,
         ]);
-
-        $transaction = $this->transaction->newQuery()->whereHasMorph(
-            'originalTransaction',
-            '*',
-        )->find($transactionContainer->transaction->id);
-
-        switch ($transaction->original_transaction_type) {
-            case 'vodacom_transaction':
-                $transaction->originalVodacom()->associate($manufacturerTransaction)->save();
-                break;
-            case 'airtel_transaction':
-                $transaction->originalAirtel()->associate($manufacturerTransaction)->save();
-                break;
-            case 'agent_transaction':
-                $transaction->originalAgent()->associate($manufacturerTransaction)->save();
-                break;
-            case 'third_party_transaction':
-                $transaction->originalThirdParty()->associate($manufacturerTransaction)->save();
-                break;
-        }
+        $transactionContainer->transaction->originalTransaction()->associate($manufacturerTransaction)->save();
     }
 }
